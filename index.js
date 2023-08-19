@@ -1,11 +1,14 @@
-import express from 'express';
+import express from "express";
+import { load } from "./src/middleware/index.js";
+import sequelize from "./src/database/connection.js";
 
+const PORT = process.env.PORT || 3500;
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+load(app);
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
-});
+app.listen(PORT, () => console.log(`puerto 🟢 📤 http://localhost:${PORT}`));
