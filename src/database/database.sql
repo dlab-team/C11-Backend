@@ -216,3 +216,12 @@ ALTER TABLE `visa` ADD FOREIGN KEY (`countries_id`) REFERENCES `countries` (`id`
 ALTER TABLE `skills` ADD FOREIGN KEY (`type_skills_id`) REFERENCES `type_skills` (`id`);
 ALTER TABLE `users` ADD FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
 ALTER TABLE `users` ADD FOREIGN KEY (`status_id`) REFERENCES `role` (`id`);
+
+--- INSERT ROLE ---
+INSERT INTO `role` VALUES (1,'Desarrollador Front End')
+INSERT INTO `role` VALUES (2,'Desarrollador Full Stack / Backend')
+INSERT INTO `role` VALUES (3,'Diseñador UX/UI')
+INSERT INTO `role` VALUES (4,'Analista QA')
+INSERT INTO `role` VALUES (5,'Desarrollador Mobile')
+INSERT INTO `role` VALUES (6,'Analista de Datos')
+INSERT INTO `role` VALUES (7,'Otra')

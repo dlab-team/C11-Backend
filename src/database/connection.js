@@ -9,7 +9,7 @@ const sequelize = new Sequelize("incubadora_c11", "devsafio", "root", {
 async function testConnection() {
   try {
     await sequelize.authenticate();
-    console.log("Conección Exitosa 🟢");
+    console.log("Conexión Exitosa 🟢");
   } catch (error) {
     console.error("Error al conectar 🔴 :", error);
   }
