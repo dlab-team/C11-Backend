@@ -1,4 +1,4 @@
-CREATE TABLE `role` (
+CREATE TABLE `roles` (
   `id` INT PRIMARY KEY,
   `name` varchar(255)
 );
@@ -56,7 +56,7 @@ CREATE TABLE `employment_statuses` (
   `description` VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE `education` (
+CREATE TABLE `educations` (
   `id` INT PRIMARY KEY,
   `user_profile_id` INT,
   `institution` VARCHAR(100) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE `languages` (
   `name` VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE `company` (
+CREATE TABLE `companies` (
   `id` INT PRIMARY KEY,
   `desired_positions` INT,
   `company` VARCHAR(50) NOT NULL,
@@ -92,31 +92,31 @@ CREATE TABLE `company` (
   `comment` VARCHAR(250)
 );
 
-CREATE TABLE `match` (
+CREATE TABLE `matches` (
   `id` INT PRIMARY KEY,
   `company` INT,
   `user_profiles` INT,
   `status` VARCHAR(150),
-  CONSTRAINT `match_company_fk` FOREIGN KEY (`company`) REFERENCES `company` (`id`),
+  CONSTRAINT `match_company_fk` FOREIGN KEY (`company`) REFERENCES `companies` (`id`),
   CONSTRAINT `match_user_profiles_fk` FOREIGN KEY (`user_profiles`) REFERENCES `user_profiles` (`id`)
 );
 
-CREATE TABLE `level` (
+CREATE TABLE `levels` (
   `id` INT PRIMARY KEY,
   `level` VARCHAR(10)
 );
 
-CREATE TABLE `work_mode` (
+CREATE TABLE `work_modes` (
   `id` INT PRIMARY KEY,
   `work_mode` VARCHAR(20)
 );
 
-CREATE TABLE `availability` (
+CREATE TABLE `availabilities` (
   `id` INT PRIMARY KEY,
   `availability` VARCHAR(20)
 );
 
-CREATE TABLE `visa` (
+CREATE TABLE `visas` (
   `id` INT PRIMARY KEY,
   `countries_id` INT,
   `status` BOOL
@@ -163,14 +163,14 @@ CREATE TABLE `desired_positions` (
   `description` VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE `test` (
+CREATE TABLE `tests` (
   `id` INT PRIMARY KEY,
   `user_profile_skills` INT,
   `quiestion` INT,
   `total` INT
 );
 
-CREATE TABLE `quiestion` (
+CREATE TABLE `quiestions` (
   `id` INT PRIMARY KEY,
   `statement` VARCHAR(300),
   `alternatives` INT,
@@ -191,37 +191,36 @@ ALTER TABLE `user_profiles` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`
 ALTER TABLE `user_profiles` ADD FOREIGN KEY (`desired_position_id`) REFERENCES `desired_positions` (`id`);
 ALTER TABLE `user_profiles` ADD FOREIGN KEY (`employment_status_id`) REFERENCES `employment_statuses` (`id`);
 ALTER TABLE `user_profiles` ADD FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`);
-ALTER TABLE `user_profiles` ADD FOREIGN KEY (`work_mode`) REFERENCES `work_mode` (`id`);
-ALTER TABLE `user_profiles` ADD FOREIGN KEY (`availability`) REFERENCES `availability` (`id`);
-ALTER TABLE `user_profiles` ADD FOREIGN KEY (`visa`) REFERENCES `visa` (`id`);
+ALTER TABLE `user_profiles` ADD FOREIGN KEY (`work_mode`) REFERENCES `work_modes` (`id`);
+ALTER TABLE `user_profiles` ADD FOREIGN KEY (`availability`) REFERENCES `availabilities` (`id`);
+ALTER TABLE `user_profiles` ADD FOREIGN KEY (`visa`) REFERENCES `visas` (`id`);
 
-ALTER TABLE `education` ADD FOREIGN KEY (`user_profile_id`) REFERENCES `user_profiles` (`id`);
+ALTER TABLE `educations` ADD FOREIGN KEY (`user_profile_id`) REFERENCES `user_profiles` (`id`);
 ALTER TABLE `certificates` ADD FOREIGN KEY (`user_profile_id`) REFERENCES `user_profiles` (`id`);
 ALTER TABLE `user_languages` ADD FOREIGN KEY (`languages_id`) REFERENCES `languages` (`id`);
 ALTER TABLE `user_languages` ADD FOREIGN KEY (`user_profile_id`) REFERENCES `user_profiles` (`id`);
-ALTER TABLE `user_languages` ADD FOREIGN KEY (`level_id`) REFERENCES `level` (`id`);
+ALTER TABLE `user_languages` ADD FOREIGN KEY (`level_id`) REFERENCES `levels` (`id`);
 ALTER TABLE `user_profile_skills` ADD FOREIGN KEY (`user_profile_id`) REFERENCES `user_profiles` (`id`);
 ALTER TABLE `user_profile_skills` ADD FOREIGN KEY (`skills_id`) REFERENCES `skills` (`id`);
-ALTER TABLE `user_profile_skills` ADD FOREIGN KEY (`level_id`) REFERENCES `level` (`id`);
+ALTER TABLE `user_profile_skills` ADD FOREIGN KEY (`level_id`) REFERENCES `levels` (`id`);
 ALTER TABLE `user_profile_soft_skills` ADD FOREIGN KEY (`soft_skill_id`) REFERENCES `soft_skills` (`id`);
 ALTER TABLE `user_profile_soft_skills` ADD FOREIGN KEY (`user_profile_id`) REFERENCES `user_profiles` (`id`);
-ALTER TABLE `test` ADD FOREIGN KEY (`user_profile_skills`) REFERENCES `user_profile_skills` (`id`);
-ALTER TABLE `test` ADD FOREIGN KEY (`quiestion`) REFERENCES `quiestion` (`id`);
-ALTER TABLE `quiestion` ADD FOREIGN KEY (`alternatives`) REFERENCES `alternatives` (`id`);
-ALTER TABLE `company` ADD FOREIGN KEY (`desired_positions`) REFERENCES `desired_positions` (`id`);
-ALTER TABLE `company` ADD FOREIGN KEY (`id`) REFERENCES `match` (`company`);
-ALTER TABLE `match` ADD FOREIGN KEY (`company`) REFERENCES `company` (`id`);
-ALTER TABLE `match` ADD FOREIGN KEY (`user_profiles`) REFERENCES `user_profiles` (`id`);
-ALTER TABLE `visa` ADD FOREIGN KEY (`countries_id`) REFERENCES `countries` (`id`);
+ALTER TABLE `tests` ADD FOREIGN KEY (`user_profile_skills`) REFERENCES `user_profile_skills` (`id`);
+ALTER TABLE `tests` ADD FOREIGN KEY (`quiestion`) REFERENCES `quiestions` (`id`);
+ALTER TABLE `quiestions` ADD FOREIGN KEY (`alternatives`) REFERENCES `alternatives` (`id`);
+ALTER TABLE `companies` ADD FOREIGN KEY (`desired_positions`) REFERENCES `desired_positions` (`id`);
+ALTER TABLE `companies` ADD FOREIGN KEY (`id`) REFERENCES `matches` (`company`);
+ALTER TABLE `matches` ADD FOREIGN KEY (`company`) REFERENCES `companies` (`id`);
+ALTER TABLE `matches` ADD FOREIGN KEY (`user_profiles`) REFERENCES `user_profiles` (`id`);
+ALTER TABLE `visas` ADD FOREIGN KEY (`countries_id`) REFERENCES `countries` (`id`);
 ALTER TABLE `skills` ADD FOREIGN KEY (`type_skills_id`) REFERENCES `type_skills` (`id`);
-ALTER TABLE `users` ADD FOREIGN KEY (`role_id`) REFERENCES `role` (`id`);
-ALTER TABLE `users` ADD FOREIGN KEY (`status_id`) REFERENCES `role` (`id`);
+ALTER TABLE `users` ADD FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+ALTER TABLE `users` ADD FOREIGN KEY (`status_id`) REFERENCES `roles` (`id`);
 
---- INSERT ROLE ---
-INSERT INTO `role` VALUES (1,'Desarrollador Front End')
-INSERT INTO `role` VALUES (2,'Desarrollador Full Stack / Backend')
-INSERT INTO `role` VALUES (3,'Diseñador UX/UI')
-INSERT INTO `role` VALUES (4,'Analista QA')
-INSERT INTO `role` VALUES (5,'Desarrollador Mobile')
-INSERT INTO `role` VALUES (6,'Analista de Datos')
-INSERT INTO `role` VALUES (7,'Otra')
+INSERT INTO `roles` VALUES (1,'Desarrollador Front End');
+INSERT INTO `roles` VALUES (2,'Desarrollador Full Stack / Backend');
+INSERT INTO `roles` VALUES (3,'Diseñador UX/UI');
+INSERT INTO `roles` VALUES (4,'Analista QA');
+INSERT INTO `roles` VALUES (5,'Desarrollador Mobile');
+INSERT INTO `roles` VALUES (6,'Analista de Datos');
+INSERT INTO `roles` VALUES (7,'Otra');

@@ -1,4 +1,4 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize, DataTypes, Model } from "sequelize";
 import sequelize from "../database/connection.js";
 
 class Rol extends Model {}
@@ -10,14 +10,15 @@ Rol.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    nombre: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "Rol",
+    modelName: "roles",
+    timestamps: false,
   }
 );
 
