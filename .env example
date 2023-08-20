@@ -1,0 +1,8 @@
+PORT=3500
+NAMEDB="incubadora_c11"
+PORTDB=3306
+USERDB="devsafio"
+PASSDB=root
+HOSTDB="localhost"
+DIALECTDB="mysql"
+

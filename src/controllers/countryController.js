@@ -1,41 +1,41 @@
-import Rol from "../model/roles.js";
+import Country from "../model/countries.js";
 
-const rolController = {
-  // Get all roles
+const countryController = {
+  // Get all contries
   getAll: async (req, res) => {
     try {
-      const roles = await Rol.findAll();
-      res.json(roles);
+      const contries = await Country.findAll();
+      res.json(contries);
     } catch (error) {
-      res.status(500).json({ error: "Error consiguiendo roles." });
+      res.status(500).json({ error: "Error consiguiendo paises." });
     }
   },
 
-  // Get a role by ID
+  // Get a coutry by ID
   getById: async (req, res) => {
     const { id } = req.params;
     try {
-      const rol = await Rol.findByPk(id);
+      const country = await Country.findByPk(id);
       if (!rol) {
-        return res.status(404).json({ message: "Role not found." });
+        return res.status(404).json({ message: "País no encontrado" });
       }
       res.json(rol);
     } catch (error) {
-      res.status(500).json({ error: "Error getting the role." });
+      res.status(500).json({ error: "Error consiguiendo el país" });
     }
   },
 
-  // Update a role by ID
+  // Update a country by ID
   updateById: async (req, res) => {
     const { id } = req.params;
     const { nombre } = req.body;
     try {
-      const rol = await Rol.findByPk(id);
+      const country = await Country.findByPk(id);
       if (!rol) {
         return res.status(404).json({ message: "No existe el rol" });
       }
-      rol.nombre = nombre; // Update the name or any other field as needed
-      await rol.save();
+      Country.nombre = nombre; // Update the name or any other field as needed
+      await Country.save();
       res.json(rol);
     } catch (error) {
       res.status(500).json({ error: "Error updating the role." });
@@ -46,11 +46,11 @@ const rolController = {
   deleteById: async (req, res) => {
     const { id } = req.params;
     try {
-      const rol = await Rol.findByPk(id);
+      const rol = await Country.findByPk(id);
       if (!rol) {
         return res.status(404).json({ message: "Role not found." });
       }
-      await rol.destroy();
+      await Country.destroy();
       res.json({ message: "Role deleted successfully." });
     } catch (error) {
       res.status(500).json({ error: "Error deleting the role." });
@@ -58,4 +58,4 @@ const rolController = {
   },
 };
 
-export default rolController;
+export default countryController;

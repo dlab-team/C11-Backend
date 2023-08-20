@@ -1,10 +1,16 @@
 import { Sequelize } from "sequelize";
-
-const sequelize = new Sequelize("incubadora_c11", "devsafio", "root", {
-  host: "localhost",
-  dialect: "mysql",
-  port: 3306 || process.env.PORTDB,
-});
+import dotenv from "dotenv";
+dotenv.config();
+const sequelize = new Sequelize(
+  process.env.NAMEDB,
+  process.env.USERDB,
+  process.env.PASSDB,
+  {
+    host: process.env.HOSTDB,
+    dialect: process.env.DIALECTDB,
+    port: process.env.PORTDB || 3306,
+  }
+);
 
 async function testConnection() {
   try {
