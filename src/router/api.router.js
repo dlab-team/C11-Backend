@@ -2,9 +2,13 @@ import express from "express";
 import rolController from "../controllers/rolController.js"; // Make sure to provide the correct path to the controller
 import countryController from "../controllers/countryController.js";
 import visaController from "../controllers/visaController.js";
-import avaliabilityController from "../controllers/availabilitiesController.js";
-import softSkillsController from "../controllers/softSkillsController.js";
+import avaliabilityController from "../controllers/availabilityController.js";
+import softSkillController from "../controllers/softSkillsController.js";
 import employmentStatusController from "../controllers/employmentStatusController.js";
+import typeSkillController from "../controllers/typeSkillController.js";
+import skillController from "../controllers/skillController.js";
+import levelController from "../controllers/levelController.js";
+import companyController from "../controllers/companyController.js";
 
 const router = express.Router();
 
@@ -22,9 +26,18 @@ router.get("/visas", visaController.getAll);
 //get all avaliability
 router.get("/avaliabilities", avaliabilityController.getAll);
 //get all softskills
-router.get("/softSkills", softSkillsController.getAll);
+router.get("/softSkills", softSkillController.getAll);
 //get all employmentStatus
 router.get("/employmentStatus", employmentStatusController.getAll);
+//get all typeSkills
+router.get("/typeSkills", typeSkillController.getAll);
+//get all skills with typeskills
+router.get("/skills", skillController.getAll);
+//get all levels
+router.get("/levels", levelController.getAll);
+//get all companies
+router.get("/companies", companyController.getAll);
+
 //-----------------------------------------------------------------
 // // Get a role by ID
 // router.get("/roles/:id", rolController.getById);
@@ -36,5 +49,10 @@ router.get("/employmentStatus", employmentStatusController.getAll);
 
 // // Delete a role by ID
 // router.delete("/roles/:id", rolController.deleteById);
+
+//-----------------------------------------------------------------
+
+//create routes
+router.post("/companies", companyController.createCompany);
 
 export default router;

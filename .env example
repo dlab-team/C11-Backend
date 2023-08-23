@@ -6,3 +6,4 @@ PASSDB=root
 HOSTDB="localhost"
 DIALECTDB="mysql"
 
+

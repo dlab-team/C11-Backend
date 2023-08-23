@@ -1,10 +1,13 @@
-import Visa from "../model/visas.js";
+import sequelize from "../database/connection.js";
+import initModels from "../models/init-models.js";
+
+const models = initModels(sequelize);
 
 const visaController = {
   // Get all Visas
   getAll: async (req, res) => {
     try {
-      const Visas = await Visa.findAll();
+      const Visas = await models.visas.findAll();
       res.json(Visas);
     } catch (error) {
       res.status(500).json({ error: "Error obteniendo Visa." });
@@ -22,38 +25,6 @@ const visaController = {
       res.json(Visa);
     } catch (error) {
       res.status(500).json({ error: "Error obteniendo Visa." });
-    }
-  },
-
-  // Update a Visa by ID
-  updateById: async (req, res) => {
-    const { id } = req.params;
-    const { status } = req.body;
-    try {
-      const Visa = await Visa.findByPk(id);
-      if (!Visa) {
-        return res.status(404).json({ message: "No existe la Visa" });
-      }
-      Visa.nombre = nombre;
-      await Visa.save();
-      res.json(Visa);
-    } catch (error) {
-      res.status(500).json({ error: "Error actualiuzando los datos." });
-    }
-  },
-
-  // Delete a Visae by ID
-  deleteById: async (req, res) => {
-    const { id } = req.params;
-    try {
-      const Visa = await Visa.findByPk(id);
-      if (!Visa) {
-        return res.status(404).json({ message: "Visa no encontrada." });
-      }
-      await Visa.destroy();
-      res.json({ message: "Visa eliminada correctamente." });
-    } catch (error) {
-      res.status(500).json({ error: "Error La visa no ha sido encontrada." });
     }
   },
 };

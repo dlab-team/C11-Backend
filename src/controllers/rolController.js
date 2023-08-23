@@ -1,10 +1,13 @@
-import Rol from "../model/roles.js";
+import sequelize from "../database/connection.js";
+import initModels from "../models/init-models.js";
+
+const models = initModels(sequelize);
 
 const rolController = {
   // Get all roles
   getAll: async (req, res) => {
     try {
-      const roles = await Rol.findAll();
+      const roles = await models.roles.findAll();
       res.json(roles);
     } catch (error) {
       res.status(500).json({ error: "Error consiguiendo roles." });
@@ -15,7 +18,7 @@ const rolController = {
   getById: async (req, res) => {
     const { id } = req.params;
     try {
-      const rol = await Rol.findByPk(id);
+      const rol = await models.roles.findByPk(id);
       if (!rol) {
         return res.status(404).json({ message: "Role not found." });
       }
@@ -30,7 +33,7 @@ const rolController = {
     const { id } = req.params;
     const { nombre } = req.body;
     try {
-      const rol = await Rol.findByPk(id);
+      const rol = await models.roles.findByPk(id);
       if (!rol) {
         return res.status(404).json({ message: "No existe el rol" });
       }
@@ -46,7 +49,7 @@ const rolController = {
   deleteById: async (req, res) => {
     const { id } = req.params;
     try {
-      const rol = await Rol.findByPk(id);
+      const rol = await models.roles.findByPk(id);
       if (!rol) {
         return res.status(404).json({ message: "Role not found." });
       }
