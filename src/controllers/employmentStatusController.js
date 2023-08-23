@@ -1,10 +1,13 @@
-import EmploymentStatuses from "../model/employment_statuses.js";
+import sequelize from "../database/connection.js";
+import initModels from "../models/init-models.js";
+
+const models = initModels(sequelize);
 
 const employmentStatusController = {
   // Get all roles
   getAll: async (req, res) => {
     try {
-      const employmentStatuses = await EmploymentStatuses.findAll();
+      const employmentStatuses = await models.employment_statuses.findAll();
       res.json(employmentStatuses);
     } catch (error) {
       res.status(500).json({

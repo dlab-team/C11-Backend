@@ -15,3 +15,8 @@ url: http://localhost:3500/api
 4. una ves adentro:
    1. `use incubadora_c11`
    2. `source /tmp/database.sql;`
+
+## Creacion de modelos en caso de modificacion
+
+###Esto creara todos los modelos en base a las tablas de la base de datos y los dejara en la carpeta seleccionada
+'npx sequelize-auto -o -l esm "./src/models/" -d incubadora_c11 -h localhost -p 3306 -u devsafio -x root -e mysql '

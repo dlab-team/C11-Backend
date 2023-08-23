@@ -20,6 +20,7 @@
     "sequelize-auto": "^0.8.8"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "sequelize-migration-generator": "^0.1.0"
   }
 }
