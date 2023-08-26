@@ -21,6 +21,14 @@ export default class user_profile_has_skills extends Model {
         model: 'skills',
         key: 'id'
       }
+    },
+    level_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'level',
+        key: 'id'
+      }
     }
   }, {
     sequelize,
@@ -48,6 +56,13 @@ export default class user_profile_has_skills extends Model {
         using: "BTREE",
         fields: [
           { name: "user_profile_id" },
+        ]
+      },
+      {
+        name: "fk_user_profile_has_skills_level1_idx",
+        using: "BTREE",
+        fields: [
+          { name: "level_id" },
         ]
       },
     ]

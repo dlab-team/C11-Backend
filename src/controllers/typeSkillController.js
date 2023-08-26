@@ -18,7 +18,7 @@ const typeSkillController = {
   getById: async (req, res) => {
     const { id } = req.params;
     try {
-      const typeSkill = await TypeSkill.findByPk(id);
+      const typeSkill = await models.type_skills.findByPk(id);
       if (!typeSkill) {
         return res.status(404).json({ message: "Datos no encontrados" });
       }
