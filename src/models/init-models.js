@@ -107,8 +107,8 @@ export default function initModels(sequelize) {
   english.hasMany(user_profile, { as: "user_profiles", foreignKey: "english_id"});
   educations.belongsTo(insitutions, { as: "insitution", foreignKey: "insitutions_id"});
   insitutions.hasMany(educations, { as: "educations", foreignKey: "insitutions_id"});
-  skills.belongsTo(level, { as: "level", foreignKey: "level_id"});
-  level.hasMany(skills, { as: "skills", foreignKey: "level_id"});
+  user_profile_has_skills.belongsTo(level, { as: "level", foreignKey: "level_id"});
+  level.hasMany(user_profile_has_skills, { as: "user_profile_has_skills", foreignKey: "level_id"});
   questions_has_answers.belongsTo(questions, { as: "question", foreignKey: "questions_id"});
   questions.hasMany(questions_has_answers, { as: "questions_has_answers", foreignKey: "questions_id"});
   tests_has_questions.belongsTo(questions, { as: "question", foreignKey: "questions_id"});

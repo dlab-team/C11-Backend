@@ -9,6 +9,8 @@ import typeSkillController from "../controllers/typeSkillController.js";
 import skillController from "../controllers/skillController.js";
 import levelController from "../controllers/levelController.js";
 import companyController from "../controllers/companyController.js";
+import stateController from "../controllers/stateController.js";
+import cityController from "../controllers/cityController.js";
 
 const router = express.Router();
 
@@ -16,6 +18,8 @@ router.get("/", (req, res) => {
   res.send("Bienvenido a la API");
   console.log("Conectado a la API");
 });
+
+//get routes
 
 // Get all roles
 router.get("/roles", rolController.getAll);
@@ -35,24 +39,21 @@ router.get("/typeSkills", typeSkillController.getAll);
 router.get("/skills", skillController.getAll);
 //get all levels
 router.get("/levels", levelController.getAll);
-//get all companies
-router.get("/companies", companyController.getAll);
 
 //-----------------------------------------------------------------
-// // Get a role by ID
-// router.get("/roles/:id", rolController.getById);
-// // Get a employmentStatus by ID
-// router.get("/employmentStatus/:id", remploymentStatusController.getById);
+//find by id
 
-// // Update a role by ID
-// router.put("/roles/:id", rolController.updateById);
-
-// // Delete a role by ID
-// router.delete("/roles/:id", rolController.deleteById);
+//the next 2 methods return a json with the value of the id as iso2 to make easier to implement in the frontend
+//find states by country iso2
+router.get("/countries/:countryIso/states", stateController.getById);
+//find cities by state iso2  and country iso2
+router.get(
+  "/countries/:countryIso/states/:stateIso/cities",
+  cityController.getCitiesByStateAndCountry
+);
 
 //-----------------------------------------------------------------
-
-//create routes
+//crate companies
 router.post("/companies", companyController.createCompany);
 
 export default router;

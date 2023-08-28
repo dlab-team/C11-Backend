@@ -21,14 +21,6 @@ export default class skills extends Model {
         model: 'type_skills',
         key: 'id'
       }
-    },
-    level_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'level',
-        key: 'id'
-      }
     }
   }, {
     sequelize,
@@ -48,13 +40,6 @@ export default class skills extends Model {
         using: "BTREE",
         fields: [
           { name: "type_skills_id" },
-        ]
-      },
-      {
-        name: "fk_skills_level1_idx",
-        using: "BTREE",
-        fields: [
-          { name: "level_id" },
         ]
       },
     ]
