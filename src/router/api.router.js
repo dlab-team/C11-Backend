@@ -56,4 +56,5 @@ router.get(
 //crate companies
 router.post("/companies", companyController.createCompany);
 router.post("/user", userController.createUser);
+router.post("/recoverPassword", userController.recoverPassword);
 export default router;

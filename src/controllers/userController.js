@@ -12,6 +12,7 @@ admin.initializeApp({
 });
 
 const userController = {
+  // CREACION DE USUARIO
   createUser: async (req, res) => {
     try {
       // Verificar si el usuario ya existe en la base de datos
@@ -67,6 +68,37 @@ const userController = {
     } catch (error) {
       console.error("Error al crear el usuario:", error);
       res.status(500).json({ error: "Error al crear el usuario" });
+    }
+  },
+  //RECOVERPASSWORD
+  recoverPassword: async (req, res) => {
+    try {
+      // Buscar el usuario por su correo electrónico en la base de datos
+      const user = await models.user.findOne({
+        where: {
+          email: req.body.email,
+        },
+      });
+
+      if (!user) {
+        return res.status(404).json({ error: "Usuario no encontrado" });
+      }
+
+      // Generar un token de restablecimiento de contraseña en Firebase
+      const userRecord = await admin.auth().getUserByEmail(req.body.email);
+      const resetToken = await admin
+        .auth()
+        .generatePasswordResetLink(req.body.email);
+
+      // Aquí puedes mostrar el enlace de restablecimiento en la respuesta
+      res.json({
+        message:
+          "Se ha enviado el enlace de restablecimiento de contraseña al correo electrónico proporcionado.",
+        resetToken,
+      });
+    } catch (error) {
+      console.error("Error al recuperar la contraseña:", error);
+      res.status(500).json({ error: "Error al recuperar la contraseña" });
     }
   },
 };
