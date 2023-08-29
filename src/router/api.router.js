@@ -11,12 +11,12 @@ import levelController from "../controllers/levelController.js";
 import companyController from "../controllers/companyController.js";
 import stateController from "../controllers/stateController.js";
 import cityController from "../controllers/cityController.js";
+import userController from "../controllers/userController.js";
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
   res.send("Bienvenido a la API");
-  console.log("Conectado a la API");
 });
 
 //get routes
@@ -55,5 +55,5 @@ router.get(
 //-----------------------------------------------------------------
 //crate companies
 router.post("/companies", companyController.createCompany);
-
+router.post("/user", userController.createUser);
 export default router;
