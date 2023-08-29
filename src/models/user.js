@@ -14,18 +14,34 @@ export default class user extends Model {
         first_name: {
           type: DataTypes.STRING(45),
           allowNull: false,
+          validate: {
+            len: {
+              args: [3, 45],
+              msg: "El campo nombre, recibe entre 3 a 45 caracteres",
+            },
+            is: {
+              args: /^[\p{L}ñÑáéíóúÁÉÍÓÚ]+[- ]?[\p{L}ñÑáéíóúÁÉÍÓÚ]+$/u,
+              msg: "El nombre solo acepta letras del alfabeto latino",
+            },
+          },
         },
         last_name: {
           type: DataTypes.STRING(45),
           allowNull: false,
+          validate: {
+            len: {
+              args: [3, 45],
+              msg: "El campo apellido, recibe entre 3 a 45 caracteres",
+            },
+            is: {
+              args: /^[\p{L}ñÑáéíóúÁÉÍÓÚ]+[- ]?[\p{L}ñÑáéíóúÁÉÍÓÚ]+$/u,
+              msg: "El apellido solo acepta letras del alfabeto latino",
+            },
+          },
         },
         email: {
           type: DataTypes.STRING(100),
           allowNull: false,
-        },
-        password: {
-          type: DataTypes.TEXT,
-          allowNull: true,
         },
         roles_id: {
           type: DataTypes.INTEGER,

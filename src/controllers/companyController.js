@@ -29,7 +29,6 @@ const companyController = {
       }
 
       const allRoles = await models.roles.findAll();
-      console.log(roles.length);
       //Validar que el array de roles no venga vacio
       if (roles.length === 0) {
         return res.status(400).json({
