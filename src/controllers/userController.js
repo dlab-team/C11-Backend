@@ -54,10 +54,6 @@ const userController = {
       if (usersCount == 0) {
         status = 1; //Hacer admin
       }
-      console.log(
-        "🚀 ~ file: userController.js:57 ~ createUser: ~  status:",
-        status
-      );
 
       //Base de datos
       const newUser = await models.user.create({
