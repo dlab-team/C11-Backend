@@ -197,7 +197,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`employment_statuses` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`employment_statuses` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -211,7 +211,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`english` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`english` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `level` INT NOT NULL,
+  `level` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -225,7 +225,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`level` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`level` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `descriptions` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -727,19 +727,55 @@ INSERT INTO skills VALUES
 (67,3,'Unreal Engine'),
 (68,3,'Zepelin');
 
-Insert Into statuses VALUES
+INSERT INTO statuses VALUES
 (1,'Administrador'),
 (2,'Usuario Incompleto'),
 (3,'Usuario Completo'),
 (4,'Postulante Activo'),
 (5,'Postulante Job ready ');
 
-Insert Into visas VALUES
+INSERT INTO visas VALUES
 (1,'Estados Unidos'),
 (2,'Union Europea'),
-(3,'Mi pais de residencia actual'),
-(4,'Otros paises');
+(3,'Mi pais de residencia actual');
 
+INSERT INTO aviabilities VALUES
+(1,'Full Time'),
+(2,'Part time'),
+(3,'Freelancer');
+
+INSERT INTO soft_skills VALUES
+(1,'Lider'),
+(2,'Resiliente/Perseverante'),
+(3,'Comunicacion/Sociable'),
+(4,'Colaborativo/Empatia'),
+(5,'Aprendizaje Agil/Autonomo'),
+(6,'Flexible/Adaptable'),
+(7,'Responsable'),
+(8,'Innovador/Curioso'),
+(9,'Negociacion'),
+(10,'Resolucion de Problemas'),
+(11,'Productividad/Iniciativa');
+
+INSERT INTO employment_statuses VALUES
+(1,'Cesante, busco empleo en TI por primera ves.'),
+(2,'Cesante, ya he trabajado antes en TI.'),
+(3,'Tengo trabajo en TI, pero busco otro.'),
+(4,'Tengo trabajo (en otras areas), pero busco en TI.');
+
+INSERT INTO english VALUES 
+(1,'Ninguno'),
+(2,'Basico A1'),
+(3,'Basico A2'),
+(4,'Pre-Intermedio B1'),
+(5,'Intermedio B2'),
+(6,'Intermedio Avanzado C1'),
+(7,'Avanzados C2');
+
+INSERT INTO level VALUES 
+(1,'No tengo experiencia laboral, perohe desarrollado proyectos utilizado estas Tecnoligia/Herramientas.'),
+(2,'Tengo poca experiencia laboral, menos de dos anos, necesito supervision constante.'),
+(3,'Tengo experiencia laboral (+2 anos) y/o autonomia completa a la hora de desarrollar proyectos.');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

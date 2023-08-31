@@ -20,24 +20,15 @@ router.get("/", (req, res) => {
 });
 
 //get routes
-
-// Get all roles
+// Get listas
 router.get("/roles", rolController.getAll);
-//get all countries
 router.get("/countries", countryController.getAll);
-//get all visa
 router.get("/visas", visaController.getAll);
-//get all avaliability
-router.get("/avaliabilities", avaliabilityController.getAll);
-//get all softskills
-router.get("/softSkills", softSkillController.getAll);
-//get all employmentStatus
-router.get("/employmentStatus", employmentStatusController.getAll);
-//get all typeSkills
 router.get("/typeSkills", typeSkillController.getAll);
-//get all skills with typeskills
 router.get("/skills", skillController.getAll);
-//get all levels
+router.get("/avaliabilities", avaliabilityController.getAll);
+router.get("/softSkills", softSkillController.getAll);
+router.get("/employmentStatus", employmentStatusController.getAll);
 router.get("/levels", levelController.getAll);
 
 //-----------------------------------------------------------------
