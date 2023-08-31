@@ -107,12 +107,14 @@ DROP TABLE IF EXISTS `incubadora_c11`.`companies` ;
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`companies` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `company` VARCHAR(45) NOT NULL,
-  `reference_user` VARCHAR(45) NOT NULL,
+  `reference_name` VARCHAR(45) NOT NULL,
+  `reference_last_name` VARCHAR(45) NOT NULL,
   `reference_email` VARCHAR(45) NOT NULL,
   `reference_phone` VARCHAR(45) NOT NULL,
   `comment` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -240,6 +242,7 @@ CREATE TABLE IF NOT EXISTS `incubadora_c11`.`statuses` (
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -254,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
-  `roles_id` INT NULL,
+  `roles_id` INT NULL DEFAULT NULL,
   `statuses_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_roles1_idx` (`roles_id` ASC) VISIBLE,
@@ -266,6 +269,7 @@ CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user` (
     FOREIGN KEY (`statuses_id`)
     REFERENCES `incubadora_c11`.`statuses` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 10
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -638,6 +642,7 @@ CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user_profile_has_visas` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
 INSERT INTO roles VALUES 
 (1,'Desarrollador Front End'),
 (2,'Desarrollador Full Stack / Backend'),
@@ -721,12 +726,14 @@ INSERT INTO skills VALUES
 (66,3,'Unity 3D'),
 (67,3,'Unreal Engine'),
 (68,3,'Zepelin');
+
 Insert Into statuses VALUES
 (1,'Administrador'),
 (2,'Usuario Incompleto'),
 (3,'Usuario Completo'),
 (4,'Postulante Activo'),
 (5,'Postulante Job ready ');
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
