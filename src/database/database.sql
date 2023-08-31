@@ -734,6 +734,12 @@ Insert Into statuses VALUES
 (4,'Postulante Activo'),
 (5,'Postulante Job ready ');
 
+Insert Into visas VALUES
+(1,'Estados Unidos'),
+(2,'Union Europea'),
+(3,'Mi pais de residencia actual'),
+(4,'Otros paises');
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
