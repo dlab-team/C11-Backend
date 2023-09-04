@@ -62,9 +62,10 @@ export default class Companies extends Model {
           type: DataTypes.STRING(45),
           allowNull: false,
           validate: {
-            is: {
-              args: /^\+\d{2,3}\d{9}$/,
-              msg: "Formato de numero telefónico no valido",
+            isPhoneNumber: function (value) {
+              if (!/^\+\d{1,4}-?\d{9,10}$/.test(value)) {
+                throw new Error("Formato de número de teléfono no válido");
+              }
             },
           },
         },

@@ -10,10 +10,6 @@ export default class skills extends Model {
       allowNull: false,
       primaryKey: true
     },
-    name: {
-      type: DataTypes.STRING(45),
-      allowNull: false
-    },
     type_skills_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -21,6 +17,10 @@ export default class skills extends Model {
         model: 'type_skills',
         key: 'id'
       }
+    },
+    name: {
+      type: DataTypes.STRING(45),
+      allowNull: false
     }
   }, {
     sequelize,

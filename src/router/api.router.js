@@ -12,6 +12,8 @@ import companyController from "../controllers/companyController.js";
 import stateController from "../controllers/stateController.js";
 import cityController from "../controllers/cityController.js";
 import userController from "../controllers/userController.js";
+import authenticate from "../middleware/authMiddleware.js";
+import userProfileController from "../controllers/userProfileController.js";
 
 const router = express.Router();
 
@@ -39,6 +41,9 @@ router.get("/typeSkills", typeSkillController.getAll);
 router.get("/skills", skillController.getAll);
 //get all levels
 router.get("/levels", levelController.getAll);
+//get loged user profile
+router.get("/user/profile", authenticate, userController.getUser);
+router.get("/userProfile", authenticate, userProfileController.getUserProfile);
 
 //-----------------------------------------------------------------
 //find by id
@@ -57,4 +62,6 @@ router.get(
 router.post("/companies", companyController.createCompany);
 router.post("/user", userController.createUser);
 router.post("/recoverPassword", userController.recoverPassword);
+router.post("/login", userController.login);
+router.post("/profile", authenticate, userProfileController.createUserProfile);
 export default router;

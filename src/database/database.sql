@@ -19,81 +19,14 @@ CREATE SCHEMA IF NOT EXISTS `incubadora_c11` DEFAULT CHARACTER SET utf8mb4 COLLA
 USE `incubadora_c11` ;
 
 -- -----------------------------------------------------
--- Table `incubadora_c11`.`answers`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`answers` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`answers` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `correct_answer` TINYINT NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `incubadora_c11`.`aviabilities`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `incubadora_c11`.`aviabilities` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`aviabilities` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `incubadora_c11`.`countries`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`countries` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`countries` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `incubadora_c11`.`states`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`states` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`states` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `countries_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_states_countries1_idx` (`countries_id` ASC) VISIBLE,
-  CONSTRAINT `fk_states_countries1`
-    FOREIGN KEY (`countries_id`)
-    REFERENCES `incubadora_c11`.`countries` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `incubadora_c11`.`cities`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`cities` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`cities` (
-  `id` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `states_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_cities_states_idx` (`states_id` ASC) VISIBLE,
-  CONSTRAINT `fk_cities_states`
-    FOREIGN KEY (`states_id`)
-    REFERENCES `incubadora_c11`.`states` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -106,11 +39,11 @@ DROP TABLE IF EXISTS `incubadora_c11`.`companies` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`companies` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `company` VARCHAR(45) NOT NULL,
-  `reference_user` VARCHAR(45) NOT NULL,
-  `reference_email` VARCHAR(45) NOT NULL,
-  `reference_phone` VARCHAR(45) NOT NULL,
-  `comment` VARCHAR(45) NULL DEFAULT NULL,
+  `company` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `reference_user` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `reference_email` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `reference_phone` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `comment` VARCHAR(45) CHARACTER SET 'utf8mb3' NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -124,7 +57,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`roles` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 8
@@ -161,7 +94,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`insitutions` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`insitutions` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL DEFAULT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -175,8 +108,8 @@ DROP TABLE IF EXISTS `incubadora_c11`.`educations` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`educations` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `carrer` VARCHAR(45) NOT NULL,
-  `institution_name` VARCHAR(45) NOT NULL,
+  `carrer` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `institution_name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   `insitutions_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_educations_insitutions1_idx` (`insitutions_id` ASC) VISIBLE,
@@ -195,21 +128,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`employment_statuses` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`employment_statuses` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `incubadora_c11`.`english`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`english` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`english` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `level` INT NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -223,7 +142,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`level` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`level` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -237,9 +156,10 @@ DROP TABLE IF EXISTS `incubadora_c11`.`statuses` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`statuses` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -251,10 +171,10 @@ DROP TABLE IF EXISTS `incubadora_c11`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(100) NOT NULL,
-  `roles_id` INT NULL,
+  `first_name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `last_name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `email` VARCHAR(100) CHARACTER SET 'utf8mb3' NOT NULL,
+  `roles_id` INT NULL DEFAULT NULL,
   `statuses_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_roles1_idx` (`roles_id` ASC) VISIBLE,
@@ -266,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user` (
     FOREIGN KEY (`statuses_id`)
     REFERENCES `incubadora_c11`.`statuses` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -277,7 +198,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`work_mode` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`work_mode` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -292,42 +213,31 @@ DROP TABLE IF EXISTS `incubadora_c11`.`user_profile` ;
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user_profile` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `gender` TINYINT NOT NULL,
-  `url_curriculum_vitae` VARCHAR(100) NULL DEFAULT NULL,
-  `url_repository` VARCHAR(100) NULL DEFAULT NULL,
-  `url_portfolio` VARCHAR(100) NULL DEFAULT NULL,
-  `url_linkedin` VARCHAR(100) NULL DEFAULT NULL,
+  `url_curriculum_vitae` VARCHAR(100) NULL,
+  `url_repository` VARCHAR(100) CHARACTER SET 'utf8mb3' NULL DEFAULT NULL,
+  `url_portfolio` VARCHAR(100) CHARACTER SET 'utf8mb3' NULL DEFAULT NULL,
+  `url_linkedin` VARCHAR(100) CHARACTER SET 'utf8mb3' NULL DEFAULT NULL,
   `phone` VARCHAR(45) NOT NULL,
-  `years_of_experience` VARCHAR(45) NOT NULL,
-  `proud_experience` TEXT NULL DEFAULT NULL,
-  `relocation` INT NOT NULL,
-  `salary_expectations` VARCHAR(45) NULL DEFAULT NULL,
+  `years_of_experience` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
+  `proud_experience` TEXT CHARACTER SET 'utf8mb3' NULL DEFAULT NULL,
+  `relocation` INT NULL DEFAULT NULL,
+  `salary_expectations` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   `user_id` INT NOT NULL,
   `work_mode_id` INT NOT NULL,
   `employment_statuses_id` INT NOT NULL,
-  `aviabilities_id` INT NOT NULL,
   `english_id` INT NOT NULL,
   `cities_id` INT NOT NULL,
-  `file_curriculum_vitae` VARCHAR(100) NULL DEFAULT NULL,
-  `max_education_level` TINYINT NULL DEFAULT NULL,
+  `file_curriculum_vitae` VARCHAR(100) CHARACTER SET 'utf8mb3' NULL,
+  `max_education_level` TINYINT NOT NULL,
+  `current_education_level` TINYINT NOT NULL,
+  `dream_job` TEXT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_profile_user1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_user_profile_work_mode1_idx` (`work_mode_id` ASC) VISIBLE,
   INDEX `fk_user_profile_employment_statuses1_idx` (`employment_statuses_id` ASC) VISIBLE,
-  INDEX `fk_user_profile_aviabilities1_idx` (`aviabilities_id` ASC) VISIBLE,
-  INDEX `fk_user_profile_english1_idx` (`english_id` ASC) VISIBLE,
-  INDEX `fk_user_profile_cities1_idx` (`cities_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_profile_aviabilities1`
-    FOREIGN KEY (`aviabilities_id`)
-    REFERENCES `incubadora_c11`.`aviabilities` (`id`),
-  CONSTRAINT `fk_user_profile_cities1`
-    FOREIGN KEY (`cities_id`)
-    REFERENCES `incubadora_c11`.`cities` (`id`),
   CONSTRAINT `fk_user_profile_employment_statuses1`
     FOREIGN KEY (`employment_statuses_id`)
     REFERENCES `incubadora_c11`.`employment_statuses` (`id`),
-  CONSTRAINT `fk_user_profile_english1`
-    FOREIGN KEY (`english_id`)
-    REFERENCES `incubadora_c11`.`english` (`id`),
   CONSTRAINT `fk_user_profile_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `incubadora_c11`.`user` (`id`),
@@ -335,6 +245,7 @@ CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user_profile` (
     FOREIGN KEY (`work_mode_id`)
     REFERENCES `incubadora_c11`.`work_mode` (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -386,49 +297,13 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `incubadora_c11`.`questions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`questions` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`questions` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `incubadora_c11`.`questions_has_answers`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`questions_has_answers` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`questions_has_answers` (
-  `questions_id` INT NOT NULL,
-  `answers_id` INT NOT NULL,
-  PRIMARY KEY (`questions_id`, `answers_id`),
-  INDEX `fk_questions_has_answers_answers1_idx` (`answers_id` ASC) VISIBLE,
-  INDEX `fk_questions_has_answers_questions1_idx` (`questions_id` ASC) VISIBLE,
-  CONSTRAINT `fk_questions_has_answers_answers1`
-    FOREIGN KEY (`answers_id`)
-    REFERENCES `incubadora_c11`.`answers` (`id`),
-  CONSTRAINT `fk_questions_has_answers_questions1`
-    FOREIGN KEY (`questions_id`)
-    REFERENCES `incubadora_c11`.`questions` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `incubadora_c11`.`type_skills`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `incubadora_c11`.`type_skills` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`type_skills` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 4
@@ -444,7 +319,7 @@ DROP TABLE IF EXISTS `incubadora_c11`.`skills` ;
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`skills` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type_skills_id` INT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_skills_type_skills1_idx` (`type_skills_id` ASC) VISIBLE,
   CONSTRAINT `fk_skills_type_skills1`
@@ -463,44 +338,8 @@ DROP TABLE IF EXISTS `incubadora_c11`.`soft_skills` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`soft_skills` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `incubadora_c11`.`tests`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`tests` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`tests` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `incubadora_c11`.`tests_has_questions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`tests_has_questions` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`tests_has_questions` (
-  `tests_id` INT NOT NULL,
-  `questions_id` INT NOT NULL,
-  PRIMARY KEY (`tests_id`, `questions_id`),
-  INDEX `fk_tests_has_questions_questions1_idx` (`questions_id` ASC) VISIBLE,
-  INDEX `fk_tests_has_questions_tests1_idx` (`tests_id` ASC) VISIBLE,
-  CONSTRAINT `fk_tests_has_questions_questions1`
-    FOREIGN KEY (`questions_id`)
-    REFERENCES `incubadora_c11`.`questions` (`id`),
-  CONSTRAINT `fk_tests_has_questions_tests1`
-    FOREIGN KEY (`tests_id`)
-    REFERENCES `incubadora_c11`.`tests` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -578,40 +417,13 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `incubadora_c11`.`user_profile_has_tests`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `incubadora_c11`.`user_profile_has_tests` ;
-
-CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user_profile_has_tests` (
-  `user_profile_id` INT NOT NULL,
-  `tests_id` INT NOT NULL,
-  `skills_id` INT NOT NULL,
-  PRIMARY KEY (`user_profile_id`, `tests_id`),
-  INDEX `fk_user_profile_has_tests_tests1_idx` (`tests_id` ASC) VISIBLE,
-  INDEX `fk_user_profile_has_tests_user_profile1_idx` (`user_profile_id` ASC) VISIBLE,
-  INDEX `fk_user_profile_has_tests_skills1_idx` (`skills_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_profile_has_tests_skills1`
-    FOREIGN KEY (`skills_id`)
-    REFERENCES `incubadora_c11`.`skills` (`id`),
-  CONSTRAINT `fk_user_profile_has_tests_tests1`
-    FOREIGN KEY (`tests_id`)
-    REFERENCES `incubadora_c11`.`tests` (`id`),
-  CONSTRAINT `fk_user_profile_has_tests_user_profile1`
-    FOREIGN KEY (`user_profile_id`)
-    REFERENCES `incubadora_c11`.`user_profile` (`id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `incubadora_c11`.`visas`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `incubadora_c11`.`visas` ;
 
 CREATE TABLE IF NOT EXISTS `incubadora_c11`.`visas` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) CHARACTER SET 'utf8mb3' NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -635,6 +447,32 @@ CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user_profile_has_visas` (
   CONSTRAINT `fk_user_profile_has_visas_visas1`
     FOREIGN KEY (`visas_id`)
     REFERENCES `incubadora_c11`.`visas` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `incubadora_c11`.`user_profile_has_aviabilities`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `incubadora_c11`.`user_profile_has_aviabilities` ;
+
+CREATE TABLE IF NOT EXISTS `incubadora_c11`.`user_profile_has_aviabilities` (
+  `user_profile_id` INT NOT NULL,
+  `aviabilities_id` INT NOT NULL,
+  PRIMARY KEY (`user_profile_id`, `aviabilities_id`),
+  INDEX `fk_user_profile_has_aviabilities_aviabilities1_idx` (`aviabilities_id` ASC) VISIBLE,
+  INDEX `fk_user_profile_has_aviabilities_user_profile1_idx` (`user_profile_id` ASC) VISIBLE,
+  CONSTRAINT `fk_user_profile_has_aviabilities_user_profile1`
+    FOREIGN KEY (`user_profile_id`)
+    REFERENCES `incubadora_c11`.`user_profile` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_profile_has_aviabilities_aviabilities1`
+    FOREIGN KEY (`aviabilities_id`)
+    REFERENCES `incubadora_c11`.`aviabilities` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -727,6 +565,58 @@ Insert Into statuses VALUES
 (3,'Usuario Completo'),
 (4,'Postulante Activo'),
 (5,'Postulante Job ready ');
+
+insert into work_mode values (1,'Quiero trabajar desde mi ciudad');
+insert into work_mode values (2,'Disponible para migrar dentro de mi pais');
+insert into work_mode values (3,'Disponible para migrar a otro pais');
+
+insert into employment_statuses values (1, 'Cesante, busco empleo en TI por primera vez');
+insert into employment_statuses values (2, 'Cesante, ya he trabajado antes en TI');
+insert into employment_statuses values (3, 'Tengo trabajo en TI, pero busco otro');
+insert into employment_statuses values (4, 'Trabajo en otra area, pero busco en TI');
+
+insert into aviabilities values (1, 'Full time');
+insert into aviabilities values (2, 'Part time');
+insert into aviabilities values (3, 'Freelancer');
+
+insert into visas values (1, 'Estados unidos');
+insert into visas values (2, 'Union Europea');
+insert into visas values (3, 'Mi Pais');
+insert into visas values (4, 'Otros');
+
+insert into insitutions values (1, 'Universidad');
+insert into insitutions values (2, 'Instituto Profesional');
+insert into insitutions values (3, 'Educacion Media');
+insert into insitutions values (4, 'Educacion Basica');
+insert into insitutions values (5, 'Bootcamp');
+
+insert into level values (1, 1);
+insert into level values (2, 2);
+insert into level values (3, 3);
+
+INSERT INTO soft_skills (id, name) VALUES   (1, 'Capacidad de respuesta'),   
+(2, 'Adaptabilidad'),   
+(3, 'Atencion a los detalles'),   
+(4, 'Colaboracion'),   
+(5, 'Habilidad para las comunicaciones'),   
+(6, 'Resolucion de conflictos'),   
+(7, 'Creatividad'),   
+(8, 'Pensamiento critico'),   
+(9, 'Inteligencia emocional'),   
+(10, 'Empatia'),   
+(11, 'Flexibilidad'),   
+(12, 'Innovacion'),   
+(13, 'Liderazgo'),   
+(14, 'Organizacion'),   
+(15, 'Paciencia'),   
+(16, 'Habilidades para socializar'),   
+(17, 'Resolucion de problemas'),   
+(18, 'Responsabilidad'),   
+(19, 'Autoconciencia'),   
+(20, 'Pensamiento estrategico'),   
+(21, 'Trabajo en equipo'),   
+(22, 'Gestion del tiempo'),   
+(23, 'Etica laboral');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

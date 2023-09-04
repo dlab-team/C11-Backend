@@ -1,10 +1,9 @@
 import https from "https";
 
-const stateController = {
+const cityController = {
   getCitiesByStateAndCountry(req, res) {
     const apiKey = process.env.COUNTRYSTATECITY_API_KEY;
     const countryIso = req.params.countryIso; // Obtener el ISO del país de la URL
-
     const stateIso = req.params.stateIso; // Obtener el ISO del estado de la URL
 
     const options = {
@@ -26,19 +25,19 @@ const stateController = {
       response.on("end", () => {
         try {
           const citiesData = JSON.parse(data);
-          return res.json(citiesData);
+          res.json(citiesData); // Enviar la respuesta aquí
         } catch (error) {
           console.error("Error parsing response:", error);
-          return res.status(500).json({ message: "Error parsing response" });
+          res.status(500).json({ message: "Error parsing response" });
         }
       });
     });
 
     request.on("error", (error) => {
       console.error("Error:", error);
-      return res.status(500).json({ message: "Error fetching cities" });
+      res.status(500).json({ message: "Error fetching cities" }); // Mover el envío de respuesta de error aquí
     });
   },
 };
 
-export default stateController;
+export default cityController;
