@@ -142,6 +142,7 @@ const userController = {
     } catch (error) {
       // Maneja los errores de inicio de sesión
       console.error("Error de inicio de sesión:", error);
+      res.json(error);
     }
   },
 

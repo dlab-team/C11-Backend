@@ -1,6 +1,7 @@
 import sequelize from "../database/connection.js";
 import initModels from "../models/init-models.js";
 import dotenv from "dotenv";
+import admin from "firebase-admin";
 
 const models = initModels(sequelize);
 dotenv.config();
@@ -10,6 +11,9 @@ const userProfileController = {
   createUserProfile: async (req, res) => {
     try {
       const {
+        name,
+        last_name,
+        email,
         roles,
         visas,
         carrerNames,
@@ -34,7 +38,22 @@ const userProfileController = {
         }
       }
       const userEmail = req.user.email; // Obtiene el correo electrónico del usuario autenticado desde la solicitud
+      console.log(
+        "🚀 ~ file: userProfileController.js:40 ~ createUserProfile: ~ req.user:",
+        req.user
+      );
       const user = await models.user.findOne({ where: { email: userEmail } });
+
+      const userFireBase = await admin.auth().updateUser(req.user.uid, {
+        email: req.body.email,
+      });
+      console.log(
+        "🚀 ~ file: userProfileController.js:49 ~ userFireBase ~ userFireBase:",
+        userFireBase
+      );
+
+      user.email = req.body.email;
+      user.save();
 
       if (!user) {
         return res.status(404).json({ message: "Usuario no encontrado" });
@@ -363,6 +382,40 @@ const userProfileController = {
       // Verifica si ya existe un perfil de usuario para este usuario
       const existingUserProfile = await models.user_profile.findOne({
         where: { user_id: user.id },
+        include: [
+          {
+            model: models.aviabilities,
+            as: "aviabilities_id_aviabilities",
+          },
+          {
+            model: models.educations,
+            as: "educations_id_educations",
+          },
+          {
+            model: models.roles,
+            as: "roles_id_roles_user_profile_desired_roles",
+          },
+          {
+            model: models.skills,
+            as: "skills_id_skills",
+          },
+          {
+            model: models.soft_skills,
+            as: "soft_skills_id_soft_skills",
+          },
+          {
+            model: models.visas,
+            as: "visas_id_visas",
+          },
+          {
+            model: models.user,
+            as: "user",
+          },
+          {
+            model: models.work_mode,
+            as: "work_mode",
+          },
+        ],
       });
 
       if (!existingUserProfile) {
