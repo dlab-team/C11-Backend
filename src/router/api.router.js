@@ -59,9 +59,10 @@ router.get(
 
 //-----------------------------------------------------------------
 //crate companies
+
 router.post("/companies", companyController.createCompany);
 router.post("/user", userController.createUser);
-router.post("/recoverPassword", userController.recoverPassword);
+// router.post("/recoverPassword", userController.recoverPassword);
 router.post("/login", userController.login);
 router.post("/profile", authenticate, userProfileController.createUserProfile);
 export default router;

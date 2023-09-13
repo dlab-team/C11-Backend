@@ -1,10 +1,10 @@
 import sequelize from "../database/connection.js";
 import initModels from "../models/init-models.js";
-import admin from "firebase-admin";
+// import admin from "firebase-admin";
 import credential from "../../credenciales.js";
 import dotenv from "dotenv";
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBDrPv7PzEiVw3t9vI81BGUgP1lFUBTIJM",
@@ -16,15 +16,17 @@ const firebaseConfig = {
   measurementId: "G-1VR36EJYBJ",
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+initializeApp(firebaseConfig);
+
+const auth = getAuth();
 
 const models = initModels(sequelize);
 dotenv.config();
-
+/*
 admin.initializeApp({
   credential: admin.credential.cert(credential),
 });
+*/
 
 const userController = {
   // CREACION DE USUARIO
@@ -43,10 +45,12 @@ const userController = {
 
       //variable para saber si existe o no usuario con el email ingresado en FIREBASE
       let existingUser = null;
-
+      // GFleming: Eliminar un try dentro de otro try, es muy mala práctica
       try {
         // Verificar si el usuario ya existe en Firebase Authentication
-        existingUser = await admin.auth().getUserByEmail(req.body.email);
+        // GFleming: Si el usuario existe o no existe eso se maneja en el login: signInWithEmailAndPassword el error
+        // de este método indica que el usuario no existe o que su contraseña está mal.
+        // existingUser = await admin.auth().getUserByEmail(req.body.email);
       } catch (error) {
         // Si el usuario no existe, el error se manejará aquí
       }
@@ -55,7 +59,7 @@ const userController = {
         return res.status(409).json({ error: "El usuario ya existe" });
       }
       //FIREBASE
-      const userResponse = await admin.auth().createUser({
+      const userResponse = await createUserWithEmailAndPassword({
         email: req.body.email,
         password: req.body.password,
         emailVerified: false,
@@ -86,7 +90,7 @@ const userController = {
     }
   },
   //RECOVERPASSWORD
-  recoverPassword: async (req, res) => {
+  /*recoverPassword: async (req, res) => {
     try {
       // Buscar el usuario por su correo electrónico en la base de datos
       const user = await models.user.findOne({
@@ -116,7 +120,7 @@ const userController = {
       res.status(500).json({ error: "Error al recuperar la contraseña" });
     }
   },
-
+*/
   login: async (req, res) => {
     try {
       const email = req.body.email;
