@@ -3,6 +3,21 @@ import initModels from "../models/init-models.js";
 import admin from "firebase-admin";
 import credential from "../../credenciales.js";
 import dotenv from "dotenv";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBDrPv7PzEiVw3t9vI81BGUgP1lFUBTIJM",
+  authDomain: "devsafio-us.firebaseapp.com",
+  projectId: "devsafio-us",
+  storageBucket: "devsafio-us.appspot.com",
+  messagingSenderId: "377347257592",
+  appId: "1:377347257592:web:45a81af40226f97f58b70d",
+  measurementId: "G-1VR36EJYBJ",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 const models = initModels(sequelize);
 dotenv.config();
@@ -99,6 +114,53 @@ const userController = {
     } catch (error) {
       console.error("Error al recuperar la contraseña:", error);
       res.status(500).json({ error: "Error al recuperar la contraseña" });
+    }
+  },
+
+  login: async (req, res) => {
+    try {
+      const email = req.body.email;
+      const password = req.body.password;
+
+      // Utiliza la función signInWithEmailAndPassword para iniciar sesión
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      // El usuario ha iniciado sesión exitosamente
+      const user = userCredential.user;
+      console.log("Usuario autenticado:", user.getIdTokenResult());
+
+      // Aquí puedes guardar el token en una variable
+      const token = await user.getIdToken();
+
+      // Puedes enviar el token como parte de la respuesta JSON
+      res.status(200).json({ token });
+      // Aquí puedes redirigir al usuario a la página principal de la aplicación o realizar otras acciones necesarias.
+    } catch (error) {
+      // Maneja los errores de inicio de sesión
+      console.error("Error de inicio de sesión:", error);
+    }
+  },
+
+  getUser: async (req, res) => {
+    try {
+      const userEmail = req.user.email; // Obtiene el ID del usuario autenticado desde la solicitud
+
+      // Realiza una consulta en tu base de datos para obtener el usuario vinculado por su ID
+      const user = await models.user.findOne({ where: { email: userEmail } });
+
+      if (!user) {
+        return res.status(404).json({ message: "Usuario no encontrado" });
+      }
+
+      // Devuelve los detalles del usuario vinculado como respuesta
+      res.status(200).json({ user });
+    } catch (error) {
+      console.error("Error al obtener el perfil del usuario:", error);
+      res.status(500).json({ error: "Error al obtener el perfil del usuario" });
     }
   },
 };
