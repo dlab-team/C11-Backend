@@ -6,8 +6,7 @@ export default class user extends Model {
     return super.init(
       {
         id: {
-          autoIncrement: true,
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING(200),
           allowNull: false,
           primaryKey: true,
         },
