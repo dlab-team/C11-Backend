@@ -2,11 +2,11 @@ import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 dotenv.config();
 const sequelize = new Sequelize(
-  process.env.NAMEDB,
-  process.env.USERDB,
-  process.env.PASSDB,
+  process.env.MYSQL_DATABASE || process.env.NAMEDB,
+  process.env.MYSQL_USER || process.env.USERDB,
+  process.env.MYSQL_PASS || process.env.PASSDB,
   {
-    host: process.env.HOSTDB,
+    host: process.env.MYSQL_HOST || process.env.HOSTDB,
     dialect: process.env.DIALECTDB,
     port: process.env.PORTDB || 3306,
   }

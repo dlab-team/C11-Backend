@@ -71,7 +71,7 @@ export default class user_profile extends Model {
           allowNull: false,
         },
         user_id: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING(200),
           allowNull: false,
           references: {
             model: "user",
