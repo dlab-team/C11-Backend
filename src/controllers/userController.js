@@ -169,5 +169,62 @@ const userController = {
       });
     }
   },
+  //RECOVERPASSWORD
+  // recoverPassword: async (req, res) => {
+  //   // try {
+  //   //   // Buscar el usuario por su correo electrónico en la base de datos
+  //   //   const user = await models.user.findOne({
+  //   //     where: {
+  //   //       email: req.body.email,
+  //   //     },
+  //   //   });
+  //   //   if (!user) {
+  //   //     return res.status(404).json({ error: "Usuario no encontrado" });
+  //   //   }
+  //   //   // Generar un token de restablecimiento de contraseña en Firebase
+  //   //   const userRecord = await admin.auth().getUserByEmail(req.body.email);
+  //   //   const resetToken = await admin
+  //   //     .auth()
+  //   //     .generatePasswordResetLink(req.body.email);
+  //   //   // Aquí puedes mostrar el enlace de restablecimiento en la respuesta
+  //   //   res.json({
+  //   //     message:
+  //   //       "Se ha enviado el enlace de restablecimiento de contraseña al correo electrónico proporcionado.",
+  //   //     resetToken,
+  //   //   });
+  //   // } catch (error) {
+  //   //   console.error("Error al recuperar la contraseña:", error);
+  //   //   res.status(500).json({ error: "Error al recuperar la contraseña" });
+  //   // }
+  //   sendPasswordResetEmail(auth, email)
+  //     .then(() => {
+  //       // Password reset email sent!
+  //       // ..
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       // ..
+  //       res.json({ errorCode, errorMessage });
+  //     });
+  // },
+  recoverPassword: async (req, res) => {
+    try {
+      const email = req.body.email;
+
+      // Envía el correo de restablecimiento de contraseña
+      await sendPasswordResetEmail(auth, email);
+
+      // Envía una respuesta exitosa
+      res.status(200).json({
+        message: "Se ha enviado el correo de restablecimiento de contraseña.",
+      });
+    } catch (error) {
+      console.error("Error al recuperar la contraseña:", error);
+      res.status(500).json({
+        error: "Error al recuperar la contraseña, inténtalo de nuevo más tarde",
+      });
+    }
+  },
 };
 export default userController;
