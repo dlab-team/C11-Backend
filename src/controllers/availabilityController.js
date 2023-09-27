@@ -4,7 +4,6 @@ import initModels from "../models/init-models.js";
 const models = initModels(sequelize);
 
 const avaliabilityController = {
-  // Get all avaliabilities
   getAll: async (req, res) => {
     try {
       const availabilities = await models.aviabilities.findAll();

@@ -34,21 +34,31 @@ const userProfileController = {
         }
       }
       const userEmail = req.user.email; // Obtiene el correo electrónico del usuario autenticado desde la solicitud
-      const user = await models.user.findOne({ where: { email: userEmail } });
+      const user = await models.user.findOne({
+        where: {
+          email: userEmail
+        }
+      });
 
       if (!user) {
-        return res.status(404).json({ message: "Usuario no encontrado" });
+        return res.status(404).json({
+          message: "Usuario no encontrado"
+        });
       }
 
       // Verifica si ya existe un perfil de usuario para este usuario
       const existingUserProfile = await models.user_profile.findOne({
-        where: { user_id: user.id },
+        where: {
+          user_id: user.id
+        },
       });
 
       if (existingUserProfile) {
         return res
           .status(400)
-          .json({ message: "El perfil de usuario ya existe" });
+          .json({
+            message: "El perfil de usuario ya existe"
+          });
       }
 
       const allRoles = await models.roles.findAll();
@@ -125,9 +135,9 @@ const userProfileController = {
 
       const invalidInstitutionIds = institutionIds.filter(
         (institutionId) =>
-          !allInstitutions.some(
-            (institution) => institution.id === institutionId
-          )
+        !allInstitutions.some(
+          (institution) => institution.id === institutionId
+        )
       );
 
       if (invalidInstitutionIds.length > 0) {
@@ -170,7 +180,7 @@ const userProfileController = {
 
       const invalidAviabilities = aviabilities.filter(
         (aviabilityId) =>
-          !allAviabilities.some((aviability) => aviability.id === aviabilityId)
+        !allAviabilities.some((aviability) => aviability.id === aviabilityId)
       );
 
       if (invalidAviabilities.length > 0) {
@@ -192,7 +202,7 @@ const userProfileController = {
 
       const invalidSoftSkills = softSkills.filter(
         (softSkillId) =>
-          !allSoftSkills.some((softSkill) => softSkill.id === softSkillId)
+        !allSoftSkills.some((softSkill) => softSkill.id === softSkillId)
       );
 
       if (invalidSoftSkills.length > 0) {
@@ -342,42 +352,60 @@ const userProfileController = {
       }
 
       // Devuelve el perfil de usuario recién creado como respuesta
-      res.status(201).json({ userProfile });
+      res.status(201).json({
+        userProfile
+      });
     } catch (error) {
       console.error("Error al crear el perfil de usuario:", error);
       res
         .status(500)
-        .json({ error: "Error al crear el perfil de usuario", error });
+        .json({
+          error: "Error al crear el perfil de usuario",
+          error
+        });
     }
   },
 
   getUserProfile: async (req, res) => {
     try {
-      const userEmail = req.user.email; // Obtiene el correo electrónico del usuario autenticado desde la solicitud
-      const user = await models.user.findOne({ where: { email: userEmail } });
+      const userEmail = req.user.email;
+      const user = await models.user.findOne({
+        where: {
+          email: userEmail
+        }
+      });
 
       if (!user) {
-        return res.status(404).json({ message: "Usuario no encontrado" });
+        return res.status(404).json({
+          message: "Usuario no encontrado"
+        });
       }
 
-      // Verifica si ya existe un perfil de usuario para este usuario
       const existingUserProfile = await models.user_profile.findOne({
-        where: { user_id: user.id },
+        where: {
+          user_id: user.id
+        },
       });
 
       if (!existingUserProfile) {
         return res
           .status(400)
-          .json({ message: "El perfil de usuario no existe" });
+          .json({
+            message: "El perfil de usuario no existe"
+          });
       }
 
-      // Devuelve el perfil de usuario recién creado como respuesta
-      res.status(201).json({ existingUserProfile });
+      res.status(201).json({
+        existingUserProfile
+      });
     } catch (error) {
       console.error("Error al obtener el perfil de usuario:", error);
       res
         .status(500)
-        .json({ error: "Error al obtener el perfil de usuario", error });
+        .json({
+          error: "Error al obtener el perfil de usuario",
+          error
+        });
     }
   },
 };

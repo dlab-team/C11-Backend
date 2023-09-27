@@ -1,11 +1,12 @@
 import sequelize from "../database/connection.js";
 import initModels from "../models/init-models.js";
 import dotenv from "dotenv";
-import sendMail from "../emailSender.js";
 
 dotenv.config();
 
-import { initializeApp } from "firebase/app";
+import {
+  initializeApp
+} from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -28,11 +29,6 @@ const auth = getAuth();
 
 const models = initModels(sequelize);
 dotenv.config();
-/*
-admin.initializeApp({
-  credential: admin.credential.cert(credential),
-});
-*/
 
 const userController = {
   // CREACION DE USUARIO
@@ -46,7 +42,9 @@ const userController = {
       });
 
       if (existingUserDB) {
-        return res.status(409).json({ error: "El usuario ya existe" });
+        return res.status(409).json({
+          error: "El usuario ya existe"
+        });
       }
 
       // Crear usuario en Firebase
@@ -77,15 +75,22 @@ const userController = {
 
         res
           .status(201)
-          .json({ message: "Usuario creado exitosamente", userCredential });
+          .json({
+            message: "Usuario creado exitosamente",
+            userCredential
+          });
       } else {
         res
           .status(500)
-          .json({ error: "Error al crear el usuario en Firebase" });
+          .json({
+            error: "Error al crear el usuario en Firebase"
+          });
       }
     } catch (error) {
       console.error("Error al crear el usuario:", error);
-      res.status(500).json({ error: "Error al crear el usuario" });
+      res.status(500).json({
+        error: "Error al crear el usuario"
+      });
     }
   },
   login: async (req, res) => {
@@ -113,10 +118,11 @@ const userController = {
     } catch (error) {
       // Maneja los errores de inicio de sesión
       console.error("Error de inicio de sesión:", error);
-      res.status(500).json({ error: "Error de inicio de sesión" });
+      res.status(500).json({
+        error: "Error de inicio de sesión"
+      });
     }
   },
-
   getUser: async (req, res) => {
     try {
       const user = getAuth().currentUser;
@@ -134,52 +140,17 @@ const userController = {
 
         res.json(usuario);
       } else {
-        res.status(404).json({ message: "Usuario no encontrado" });
+        res.status(404).json({
+          message: "Usuario no encontrado"
+        });
       }
     } catch (error) {
       console.error("Error al obtener el perfil del usuario:", error);
-      res.status(500).json({ error: "Error al obtener el perfil del usuario" });
+      res.status(500).json({
+        error: "Error al obtener el perfil del usuario"
+      });
     }
   },
-  //RECOVERPASSWORD
-  // recoverPassword: async (req, res) => {
-  //   // try {
-  //   //   // Buscar el usuario por su correo electrónico en la base de datos
-  //   //   const user = await models.user.findOne({
-  //   //     where: {
-  //   //       email: req.body.email,
-  //   //     },
-  //   //   });
-  //   //   if (!user) {
-  //   //     return res.status(404).json({ error: "Usuario no encontrado" });
-  //   //   }
-  //   //   // Generar un token de restablecimiento de contraseña en Firebase
-  //   //   const userRecord = await admin.auth().getUserByEmail(req.body.email);
-  //   //   const resetToken = await admin
-  //   //     .auth()
-  //   //     .generatePasswordResetLink(req.body.email);
-  //   //   // Aquí puedes mostrar el enlace de restablecimiento en la respuesta
-  //   //   res.json({
-  //   //     message:
-  //   //       "Se ha enviado el enlace de restablecimiento de contraseña al correo electrónico proporcionado.",
-  //   //     resetToken,
-  //   //   });
-  //   // } catch (error) {
-  //   //   console.error("Error al recuperar la contraseña:", error);
-  //   //   res.status(500).json({ error: "Error al recuperar la contraseña" });
-  //   // }
-  //   sendPasswordResetEmail(auth, email)
-  //     .then(() => {
-  //       // Password reset email sent!
-  //       // ..
-  //     })
-  //     .catch((error) => {
-  //       const errorCode = error.code;
-  //       const errorMessage = error.message;
-  //       // ..
-  //       res.json({ errorCode, errorMessage });
-  //     });
-  // },
   recoverPassword: async (req, res) => {
     try {
       const email = req.body.email;
