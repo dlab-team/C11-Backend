@@ -4,7 +4,6 @@ import initModels from "../models/init-models.js";
 const models = initModels(sequelize);
 
 const insitutionsController = {
-    // Get all roles
     getAll: async (req, res) => {
         try {
             const insitutions = await models.insitutions.findAll();
