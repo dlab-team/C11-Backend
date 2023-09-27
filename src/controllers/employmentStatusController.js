@@ -4,7 +4,6 @@ import initModels from "../models/init-models.js";
 const models = initModels(sequelize);
 
 const employmentStatusController = {
-  // Get all roles
   getAll: async (req, res) => {
     try {
       const employmentStatuses = await models.employment_statuses.findAll();

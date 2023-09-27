@@ -4,10 +4,9 @@ import initModels from "../models/init-models.js";
 const models = initModels(sequelize);
 
 const levelController = {
-  // Get all roles
   getAll: async (req, res) => {
     try {
-      const levels = await models.levels.findAll();
+      const levels = await models.level.findAll();
       res.json(levels);
     } catch (error) {
       res.status(500).json({
