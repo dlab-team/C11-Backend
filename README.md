@@ -19,7 +19,7 @@ url: http://localhost:3500/api
 ## Creacion de modelos en caso de modificacion
 
 ###Esto creara todos los modelos en base a las tablas de la base de datos y los dejara en la carpeta seleccionada
-'npx sequelize-auto -o -l esm "./src/models/" -d incubadora_c11 -h localhost -p 3306 -u devsafio -x root -e mysql '
+'npx sequelize-auto -o -l esm "./src/model/" -d incubadora_c11 -h localhost -p 3306 -u devsafio -x root -e mysql '
 
 docker run -d --name incubadora_c11 -p 3306:3306 victortomasmolinaarias/incubadora_c11
 

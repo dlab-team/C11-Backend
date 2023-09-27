@@ -13,6 +13,8 @@ import stateController from "../controllers/stateController.js";
 import cityController from "../controllers/cityController.js";
 import userController from "../controllers/userController.js";
 import userProfileController from "../controllers/userProfileController.js";
+import englishController from "../controllers/english.controller.js";
+import insitutionsController from "../controllers/institutionsController.js";
 
 const router = express.Router();
 
@@ -22,6 +24,8 @@ router.get("/", (req, res) => {
 
 //get routes
 
+router.get("/insitutions", insitutionsController.getAll);
+router.get("/english", englishController.getAll);
 router.get("/roles", rolController.getAll);
 router.get("/countries", countryController.getAll);
 router.get("/visas", visaController.getAll);
