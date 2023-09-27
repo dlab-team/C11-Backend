@@ -5,6 +5,7 @@ import _companies from  "./companies.js";
 import _companies_desired_roles from  "./companies_desired_roles.js";
 import _educations from  "./educations.js";
 import _employment_statuses from  "./employment_statuses.js";
+import _english from  "./english.js";
 import _insitutions from  "./insitutions.js";
 import _level from  "./level.js";
 import _matches from  "./matches.js";
@@ -13,6 +14,7 @@ import _skills from  "./skills.js";
 import _soft_skills from  "./soft_skills.js";
 import _statuses from  "./statuses.js";
 import _type_skills from  "./type_skills.js";
+import _url from  "./url.js";
 import _user from  "./user.js";
 import _user_profile from  "./user_profile.js";
 import _user_profile_desired_roles from  "./user_profile_desired_roles.js";
@@ -30,6 +32,7 @@ export default function initModels(sequelize) {
   const companies_desired_roles = _companies_desired_roles.init(sequelize, DataTypes);
   const educations = _educations.init(sequelize, DataTypes);
   const employment_statuses = _employment_statuses.init(sequelize, DataTypes);
+  const english = _english.init(sequelize, DataTypes);
   const insitutions = _insitutions.init(sequelize, DataTypes);
   const level = _level.init(sequelize, DataTypes);
   const matches = _matches.init(sequelize, DataTypes);
@@ -38,6 +41,7 @@ export default function initModels(sequelize) {
   const soft_skills = _soft_skills.init(sequelize, DataTypes);
   const statuses = _statuses.init(sequelize, DataTypes);
   const type_skills = _type_skills.init(sequelize, DataTypes);
+  const url = _url.init(sequelize, DataTypes);
   const user = _user.init(sequelize, DataTypes);
   const user_profile = _user_profile.init(sequelize, DataTypes);
   const user_profile_desired_roles = _user_profile_desired_roles.init(sequelize, DataTypes);
@@ -75,6 +79,8 @@ export default function initModels(sequelize) {
   educations.hasMany(user_profile_has_educations, { as: "user_profile_has_educations", foreignKey: "educations_id"});
   user_profile.belongsTo(employment_statuses, { as: "employment_status", foreignKey: "employment_statuses_id"});
   employment_statuses.hasMany(user_profile, { as: "user_profiles", foreignKey: "employment_statuses_id"});
+  user_profile.belongsTo(english, { as: "english", foreignKey: "english_id"});
+  english.hasMany(user_profile, { as: "user_profiles", foreignKey: "english_id"});
   educations.belongsTo(insitutions, { as: "insitution", foreignKey: "insitutions_id"});
   insitutions.hasMany(educations, { as: "educations", foreignKey: "insitutions_id"});
   user_profile_has_skills.belongsTo(level, { as: "level", foreignKey: "level_id"});
@@ -95,6 +101,8 @@ export default function initModels(sequelize) {
   type_skills.hasMany(skills, { as: "skills", foreignKey: "type_skills_id"});
   user_profile.belongsTo(user, { as: "user", foreignKey: "user_id"});
   user.hasMany(user_profile, { as: "user_profiles", foreignKey: "user_id"});
+  url.belongsTo(user_profile, { as: "user_profile", foreignKey: "user_profile_id"});
+  user_profile.hasMany(url, { as: "urls", foreignKey: "user_profile_id"});
   user_profile_desired_roles.belongsTo(user_profile, { as: "user_profile", foreignKey: "user_profile_id"});
   user_profile.hasMany(user_profile_desired_roles, { as: "user_profile_desired_roles", foreignKey: "user_profile_id"});
   user_profile_has_aviabilities.belongsTo(user_profile, { as: "user_profile", foreignKey: "user_profile_id"});
@@ -122,6 +130,7 @@ export default function initModels(sequelize) {
     companies_desired_roles,
     educations,
     employment_statuses,
+    english,
     insitutions,
     level,
     matches,
@@ -130,6 +139,7 @@ export default function initModels(sequelize) {
     soft_skills,
     statuses,
     type_skills,
+    url,
     user,
     user_profile,
     user_profile_desired_roles,
