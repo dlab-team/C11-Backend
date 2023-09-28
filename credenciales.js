@@ -12,4 +12,3 @@ const credential = {
   "universe_domain": "googleapis.com"
 }
 export default credential;
-
