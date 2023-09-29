@@ -4,6 +4,8 @@ const cityController = {
   getCitiesByStateAndCountry(req, res) {
     const apiKey = process.env.COUNTRYSTATECITY_API_KEY;
     const countryIso = req.params.countryIso;
+    const stateIso = req.params.stateIso;
+
     const options = {
       hostname: "api.countrystatecity.in",
       path: `/v1/countries/${countryIso}/states/${stateIso}/cities`,
