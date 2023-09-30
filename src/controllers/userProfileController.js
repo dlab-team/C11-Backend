@@ -1,9 +1,14 @@
 import sequelize from "../database/connection.js";
 import initModels from "../models/init-models.js";
 import dotenv from "dotenv";
-
+import {
+  getAuth,
+} from "firebase/auth";
 const models = initModels(sequelize);
 dotenv.config();
+
+
+const auth = getAuth();
 
 const userProfileController = {
   // CREACION DE PERFIL USUARIO
@@ -33,13 +38,8 @@ const userProfileController = {
             .toLowerCase();
         }
       }
-      const userEmail = req.user.email; // Obtiene el correo electrónico del usuario autenticado desde la solicitud
-      const user = await models.user.findOne({
-        where: {
-          email: userEmail
-        }
-      });
-
+      const user = auth.currentUser;
+      console.log(user);
       if (!user) {
         return res.status(404).json({
           message: "Usuario no encontrado"
@@ -49,7 +49,7 @@ const userProfileController = {
       // Verifica si ya existe un perfil de usuario para este usuario
       const existingUserProfile = await models.user_profile.findOne({
         where: {
-          user_id: user.id
+          user_id: user.uid
         },
       });
 
@@ -212,7 +212,18 @@ const userProfileController = {
         });
       }
 
-      // Validar la ciudad PENDIENTE
+      //validar ingles
+      const english = await models.english.findOne({
+        where: {
+          idenglish: userProfileData.english_id
+        }
+      });
+
+      if (!english) {
+        return res.status(404).json({
+          message: "Usuario no encontrado"
+        });
+      }
 
       // Obtén los datos del perfil de usuario desde el cuerpo de la solicitud
 
@@ -221,7 +232,7 @@ const userProfileController = {
         gender: userProfileData.gender,
         url_curriculum_vitae: userProfileData.url_curriculum_vitae,
         url_repository: userProfileData.url_repository,
-        url_portfolio: userProfileData.url_portfolio,
+        // url_portfolio: userProfileData.url_portfolio,
         url_linkedin: userProfileData.url_linkedin,
         phone: userProfileData.phone,
         years_of_experience: userProfileData.years_of_experience,
@@ -229,7 +240,7 @@ const userProfileController = {
         relocation: userProfileData.relocation,
         salary_expectations: userProfileData.salary_expectations,
         user_id: userProfileData.user_id,
-        work_mode_id: userProfileData.work_mode_id,
+        /*  work_mode_id: userProfileData.work_mode_id, */
         employment_statuses_id: userProfileData.employment_statuses_id,
         english_id: userProfileData.english_id,
         cities_id: userProfileData.cities_id,
@@ -237,10 +248,17 @@ const userProfileController = {
         max_education_level: userProfileData.max_education_level,
         current_education_level: userProfileData.current_education_level,
         dream_job: userProfileData.dream_job,
-        user_id: user.id, // Establece el ID de usuario relacionado
+        user_id: user.uid, // Establece el ID de usuario relacionado
       });
 
       const userProfileId = userProfile.id;
+
+      //agregar tabla url
+      const url = await models.url.create({
+        url: userProfileData.url_portfolio,
+        user_profile_id: userProfileId,
+      });
+
 
       //agregar tablas intermedias
 
