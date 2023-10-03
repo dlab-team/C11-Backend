@@ -15,6 +15,7 @@ import userController from "../controllers/userController.js";
 import userProfileController from "../controllers/userProfileController.js";
 import englishController from "../controllers/english.controller.js";
 import insitutionsController from "../controllers/institutionsController.js";
+import socialLoginController from "../controllers/socialLoginController.js";
 
 const router = express.Router();
 
@@ -36,7 +37,7 @@ router.get("/typeSkills", typeSkillController.getAll);
 router.get("/skills", skillController.getAll);
 router.get("/levels", levelController.getAll);
 router.get("/user/profile", userController.getUser);
-router.get("/userProfile", userProfileController.getUserProfile);
+router.get("/userProfile", userProfileController.getUserProfile); // revisar
 router.get("/countries/:countryIso/states", stateController.getById);
 router.get(
   "/countries/:countryIso/states/:stateIso/cities",
@@ -50,5 +51,6 @@ router.post("/companies", companyController.createCompany);
 router.post("/user", userController.createUser);
 router.post("/recoverPassword", userController.recoverPassword);
 router.post("/login", userController.login);
-router.post("/profile", userProfileController.createUserProfile);
+router.post("/profile", userProfileController.createUserProfile); //revisar
+router.post("/socialLogin", socialLoginController.createUser); //revisar
 export default router;
